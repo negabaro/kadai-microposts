@@ -41,6 +41,37 @@ class User < ApplicationRecord
   end
   
   
+  has_many :favorites
+  has_many :active_favorite, through: :favorites, source: :user  #
+  has_many :favorite_micropost, through: :favorites, source: :micropost  #
+  
+  def add_favorite(micropost)
+    unless self.microposts == micropost
+      self.favorites.find_or_create_by(micropost_id: micropost.id)
+    end
+  
+  end
+  
+  def cancel_favorite(micropost)
+    favorite = self.favorites.find_or_create_by(micropost_id: micropost.id)
+    favorite.destroy if favorite
+  end
+
+  def likes
+    #Microsoft.where()
+    #Micropost.where(id: self.favorite_ids) < NG
+    self.favorite_micropost
+    
+  end
+  
+  #あるユーザーがあるpostをお気に入りしたかチェック
+  def is_favorite?(ohter_micropost)
+    self.likes.include?(ohter_micropost)
+  end
+  
+
+  
+  
   
   
 end

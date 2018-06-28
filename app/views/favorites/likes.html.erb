@@ -1,0 +1,18 @@
+<ul class="media-list">
+  <% @favorite_list.each  do |f| %>
+  <li class="media">
+    <div class="media-left">
+      <%= f.id %>
+    </div>
+    
+    <div class="media-body">
+      <div>
+        content: <%= f.content %>
+      </div>
+      <div>
+        user_id: <%= f.user_id %>
+      </div>
+    </div>
+  </li>
+  <% end %>
+</ul>
